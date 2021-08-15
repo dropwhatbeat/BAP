@@ -22,10 +22,9 @@ df <- df[!(nchar(df$Email)<2 & nchar(df$Billing.Name)<2), ]
 #take first name
 df$Billing.Name <- word(df$Billing.Name, 1)
 
-#replace firstname with email name if firstname is less than 2 characters / empty
-df$Billing.Name <- ifelse(nchar(df$Billing.Name) < 3, gsub("@.*$", "", df$Email),df$Billing.Name)
-
+#remove numbers, replace firstname with email name if firstname is less than 2 characters / empty
 df$Billing.Name <- gsub('[0-9]+', '', df$Billing.Name)
+df$Billing.Name <- ifelse(nchar(df$Billing.Name) < 1, gsub("@.*$", "", df$Email),df$Billing.Name)
 
 df$Gender <- ""
 
